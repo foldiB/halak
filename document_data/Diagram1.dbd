@@ -53,8 +53,8 @@
               <Parent>0</Parent>
             </CustomProperties>
             <Location>
-              <X>-440 px</X>
-              <Y>-260 px</Y>
+              <X>-620 px</X>
+              <Y>-210 px</Y>
             </Location>
             <Size>
               <Width>170 px</Width>
@@ -77,14 +77,14 @@
             </CustomProperties>
             <Location>
               <X>-130 px</X>
-              <Y>-210 px</Y>
+              <Y>-150 px</Y>
             </Location>
             <Size>
-              <Width>148 px</Width>
-              <Height>110 px</Height>
+              <Width>220 px</Width>
+              <Height>127 px</Height>
             </Size>
             <DbOid>
-              <Path>halak.name</Path>
+              <Path>halak.landscapenames</Path>
               <TypeName>Table</TypeName>
             </DbOid>
             <Compartments>
@@ -120,8 +120,8 @@
             <CustomProperties>
               <OID>4</OID>
               <Comment>5</Comment>
-              <OutModel>1</OutModel>
-              <InModel>2</InModel>
+              <OutModel>2</OutModel>
+              <InModel>1</InModel>
               <OutPort>6</OutPort>
               <InPort>7</InPort>
               <Parent>0</Parent>
@@ -129,11 +129,11 @@
             <PortAnchors>
               <Port>
                 <Location>
-                  <X>141 px</X>
-                  <Y>35.2752808988764 px</Y>
+                  <X>0 px</X>
+                  <Y>72 px</Y>
                 </Location>
                 <Anchors>None</Anchors>
-                <Align>Right</Align>
+                <Align>Left</Align>
                 <CustomProperties>
                   <OID>6</OID>
                   <PortType>FixedAnchor</PortType>
@@ -141,11 +141,11 @@
               </Port>
               <Port>
                 <Location>
-                  <X>5.67163268238244 px</X>
-                  <Y>36.9403013237124 px</Y>
+                  <X>169 px</X>
+                  <Y>38 px</Y>
                 </Location>
                 <Anchors>None</Anchors>
-                <Align>Left</Align>
+                <Align>Right</Align>
                 <CustomProperties>
                   <OID>7</OID>
                   <PortType>FixedAnchor</PortType>
@@ -154,17 +154,17 @@
             </PortAnchors>
             <BendPoints>
               <PointD>
-                <X>-250 px</X>
-                <Y>-224.724719101124 px</Y>
+                <X>-280 px</X>
+                <Y>-78 px</Y>
               </PointD>
               <PointD>
-                <X>-250 px</X>
-                <Y>-173.059698676288 px</Y>
+                <X>-280 px</X>
+                <Y>-172 px</Y>
               </PointD>
             </BendPoints>
-            <IsManuallyRouted>false</IsManuallyRouted>
+            <IsManuallyRouted>true</IsManuallyRouted>
             <DbOid>
-              <Path>halak.species.FK_species_username_azon</Path>
+              <Path>halak.landscapenames.FK_landscapenames_species_id</Path>
               <TypeName>ForeignKey</TypeName>
             </DbOid>
           </Model>
@@ -178,11 +178,11 @@
             <PortAnchors>
               <Port xsi:type="LinkPort">
                 <Location>
-                  <X>-80 px</X>
-                  <Y>-51.6650267183111 px</Y>
+                  <X>150 px</X>
+                  <Y>47 px</Y>
                 </Location>
                 <Anchors>None</Anchors>
-                <Align>Right</Align>
+                <Align>Left</Align>
                 <CustomProperties>
                   <OID>8</OID>
                   <PortType>FixedAnchor</PortType>
