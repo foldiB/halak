@@ -7,6 +7,8 @@ namespace sqlImportProjekt
 {
     internal class Halak
     {
+        List<Specie> species = new List<Specie>();
+        List<Landscapename> landscapenames = new List<Landscapename>();
        
 
         private string fajlnev;
@@ -18,19 +20,37 @@ namespace sqlImportProjekt
             this.fajlnev = fajlnev;
             this.fajlfaj = fajlfaj;
             this.halimportFajl = halimportFajl;
-            BeolvasNev();
-            BeolvasFaj();
+            BeolvasLandscapename();
+            Beolvasspecies();
             //ImportGenerátor();
         }
 
-        private void BeolvasFaj()
+        private void BeolvasLandscapename()
         {
-            throw new NotImplementedException();
+            string[] sorok = File.ReadAllLines(fajlfaj);
+            foreach (var sor in sorok.Skip(1))
+            {
+                string[] oszlopok = sor.Split(' ');
+                int fishid = int.Parse(oszlopok[0]);
+                string landscapename = oszlopok[1];
+                landscapenames.Add(new Landscapename(fishid, landscapename));
+            }
         }
 
-        private void BeolvasNev()
+        private void Beolvasspecies()
         {
-            throw new NotImplementedException();
+            string[] sorok = File.ReadAllLines(fajlnev);
+            foreach (var sor in sorok.Skip(1))
+            {
+                string[] oszlopok = sor.Split(' ');
+                int id = int.Parse(oszlopok[0]);
+                string fishname = oszlopok[1];
+                int note = int.Parse(oszlopok[2]);
+                string frequency = oszlopok[3];
+                int occurrence = int.Parse(oszlopok[4]);
+                int protecteds = int.Parse(oszlopok[5]);
+                species.Add(new Specie(id, fishname, note, frequency, occurrence, protecteds));
+    }
         }
 
         private void ImportGenerátor()
@@ -41,6 +61,9 @@ namespace sqlImportProjekt
             jelentkezésGenerátor();
             selectGenerátor();
         }
+
+
+
 
         private void selectGenerátor()
         {
