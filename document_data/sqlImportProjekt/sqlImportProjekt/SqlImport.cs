@@ -22,31 +22,36 @@ namespace sqlImportProjekt
             this.halimportFajl = halimportFajl;
             BeolvasLandscapename();
             Beolvasspecies();
-            //ImportGenerátor();
+            ImportGenerátor();
+        }
+
+        internal int eee(string fajlnev, string fajlfaj)
+        {
+            return landscapenames.Count();
         }
 
         private void BeolvasLandscapename()
         {
-            string[] sorok = File.ReadAllLines(fajlfaj);
-            foreach (var sor in sorok.Skip(1))
-            {
-                string[] oszlopok = sor.Split(' ');
-                int fishid = int.Parse(oszlopok[0]);
-                string landscapename = oszlopok[1];
-                landscapenames.Add(new Landscapename(fishid, landscapename));
-            }
-        }
-
-        private void Beolvasspecies()
-        {
             string[] sorok = File.ReadAllLines(fajlnev);
             foreach (var sor in sorok.Skip(1))
             {
-                string[] oszlopok = sor.Split(' ');
+                string[] oszlopok = sor.Split('\t');
+                int fishid =int.Parse(oszlopok[0]);
+                string landscapename =$"'{oszlopok[1]}'";
+                landscapenames.Add(new Landscapename(fishid, landscapename));
+            }
+        }
+        
+        private void Beolvasspecies()
+        {
+            string[] sorok = File.ReadAllLines(fajlfaj);
+            foreach (var sor in sorok.Skip(1))
+            {
+                string[] oszlopok = sor.Split('\t');
                 int id = int.Parse(oszlopok[0]);
-                string fishname = oszlopok[1];
+                string fishname = $"'{oszlopok[1]}'";
                 int note = int.Parse(oszlopok[2]);
-                string frequency = oszlopok[3];
+                string frequency = $"'{oszlopok[3]}'";
                 int occurrence = int.Parse(oszlopok[4]);
                 int protecteds = int.Parse(oszlopok[5]);
                 species.Add(new Specie(id, fishname, note, frequency, occurrence, protecteds));
@@ -56,9 +61,9 @@ namespace sqlImportProjekt
         private void ImportGenerátor()
         {
             delteGenerátor();
-            hallgatóGenerátor();
-            vizsgaGenerátor();
+     
             jelentkezésGenerátor();
+            vizsgaGenerátor();
             selectGenerátor();
         }
 
@@ -67,85 +72,62 @@ namespace sqlImportProjekt
 
         private void selectGenerátor()
         {
-            //List<string> fsorok = new List<string>();
-            //fsorok.Add("");
-            //fsorok.Add("SELECT * FROM hallgato;");
-            //fsorok.Add("SELECT * FROM jelentkezes;");
-            //fsorok.Add("SELECT * FROM vizsga;");
-            //File.AppendAllLines(fajlKollokviumImport, fsorok);
+            List<string> fsorok = new List<string>();
+            fsorok.Add("");
+            fsorok.Add("SELECT * FROM species;");
+            fsorok.Add("SELECT * FROM landscapenames;");
+            
+            File.AppendAllLines(halimportFajl, fsorok);
         }
 
         private void jelentkezésGenerátor()
         {
-            //List<string> fsorok = new List<string>();
+            List<string> fsorok = new List<string>();
 
-            //string szoveg = Environment.NewLine + "# jelentkezések" + Environment.NewLine;
-            //szoveg += "INSERT INTO jelentkezes (hallgatoid, vizsgaid, jeldatum, ledatum, igazolt, jegy) VALUES" + Environment.NewLine;
+            string szoveg = Environment.NewLine + "# jelentkezések" + Environment.NewLine;
+            szoveg += "INSERT INTO species (id, fishname, note, frequency, occurrence, protected) VALUES" + Environment.NewLine;
 
-            //foreach (var jelenkezes in jelentkezesek)
-            //{
-            //    string sor = $"({jelenkezes.hallgatoid},{jelenkezes.vizsgaid},{jelenkezes.jeldatum},{jelenkezes.ledatum},{jelenkezes.igazolt},{jelenkezes.jegy})";
-            //    fsorok.Add(sor);
-            //}
+            foreach (var jelenkezes in species)
+            {
+                string sor = $"({jelenkezes.id},{jelenkezes.fishname },{jelenkezes.note},{jelenkezes.frequency},{jelenkezes.occurrence},{jelenkezes.protecteds})";
+                fsorok.Add(sor);
+            }
 
-            //szoveg += String.Join("," + Environment.NewLine, fsorok);
-            //szoveg += ";";
+            szoveg += String.Join("," + Environment.NewLine, fsorok);
+            szoveg += ";";
 
-            //File.AppendAllText(fajlKollokviumImport, szoveg);
+            File.AppendAllText(halimportFajl, szoveg);
         }
+       
 
-        private void vizsgaGenerátor()
+   private void vizsgaGenerátor()
         {
-            //List<string> fsorok = new List<string>();
+            List<string> fsorok = new List<string>();
 
-            //string szoveg = Environment.NewLine + "# vizsgák" + Environment.NewLine;
-            //szoveg += "INSERT INTO vizsga (id, datum, targy) VALUES" + Environment.NewLine;
+            string szoveg = Environment.NewLine + "# vizsgák" + Environment.NewLine;
+            szoveg += "INSERT INTO landscapenames (landscapename, specifiesid) VALUES" + Environment.NewLine;
 
-            //foreach (var vizsga in vizsgak)
-            //{
-            //    string sor = $"({vizsga.id}, {vizsga.datum}, {vizsga.targy})";
-            //    fsorok.Add(sor);
-            //}
+            foreach (var vizsga in landscapenames)
+            {
+                string sor = $"({vizsga.landscapename}, {vizsga.fishid})";
+                fsorok.Add(sor);
+            }
 
-            //szoveg += String.Join("," + Environment.NewLine, fsorok);
-            //szoveg += ";";
+            szoveg += String.Join("," + Environment.NewLine, fsorok);
+            szoveg += ";";
 
-            //File.AppendAllText(fajlKollokviumImport, szoveg);
+            File.AppendAllText(halimportFajl, szoveg);
         }
 
-        private void hallgatóGenerátor()
-        {
-            //List<string> fsorok = new List<string>();
-
-            //string szoveg = Environment.NewLine + "# hallgatók" + Environment.NewLine;
-            //szoveg += "INSERT INTO hallgato (id, nev) VALUES" + Environment.NewLine;
-
-            //foreach (var hallgató in hallgatok)
-            //{
-            //    string sor = $"({hallgató.id}, {hallgató.nev})";
-            //    fsorok.Add(sor);
-            //}
-
-            //szoveg += String.Join("," + Environment.NewLine, fsorok);
-            //szoveg += ";";
-
-            //File.AppendAllText(fajlKollokviumImport, szoveg);
-        }
+       
 
         private void delteGenerátor()
         {
-            //List<string> fsorok = new List<string>();
-            //fsorok.Add("DELETE FROM jelentkezes;");
-            //fsorok.Add("DELETE FROM hallgato;");
-            //fsorok.Add("DELETE FROM vizsga;");
-            //File.WriteAllLines(fajlKollokviumImport, fsorok);
-        }
-
-       
-
-       
-
-        
-        
+            List<string> fsorok = new List<string>();
+            fsorok.Add("DELETE FROM species;");
+            fsorok.Add("DELETE FROM landscapenames;");
+         
+            File.WriteAllLines(halimportFajl, fsorok);
+        }  
     }
 }
