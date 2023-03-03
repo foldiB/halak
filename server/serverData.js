@@ -594,12 +594,80 @@ app.put("/trips/:id", (req, res) => {
 });
 //#endregion trips
 
+
+//#region species
+app.get("/species", (req, res) => {
+  let sql = `SELECT * FROM species`;
+
+  pool.getConnection(function (error, connection) {
+    if (error) {
+      sendingGetError(res, "Server connecting error!");
+      return;
+    }
+    connection.query(sql, async function (error, results, fields) {
+      if (error) {
+        message = "species sql error";
+        sendingGetError(res, message);
+        return;
+      }
+      sendingGet(res, null, results);
+    });
+    connection.release();
+  });
+});
+
+
+//#endregion species
 function mySanitizeHtml(data) {
   return sanitizeHtml(data, {
     allowedTags: [],
     allowedAttributes: {},
   });
 }
+
+//#region landscapenames
+app.get("/landscapenames", (req, res) => {
+  let sql = `SELECT * FROM landscapenames`;
+
+  pool.getConnection(function (error, connection) {
+    if (error) {
+      sendingGetError(res, "Server connecting error!");
+      return;
+    }
+    connection.query(sql, async function (error, results, fields) {
+      if (error) {
+        message = "landscapenames sql error";
+        sendingGetError(res, message);
+        return;
+      }
+      sendingGet(res, null, results);
+    });
+    connection.release();
+  });
+});
+
+
+//#region users
+app.get("/users", (req, res) => {
+  let sql = `SELECT * FROM users`;
+
+  pool.getConnection(function (error, connection) {
+    if (error) {
+      sendingGetError(res, "Server connecting error!");
+      return;
+    }
+    connection.query(sql, async function (error, results, fields) {
+      if (error) {
+        message = "users sql error";
+        sendingGetError(res, message);
+        return;
+      }
+      sendingGet(res, null, results);
+    });
+    connection.release();
+  });
+});
+
 
 app.listen(process.env.APP_PORT, () => {
   console.log(

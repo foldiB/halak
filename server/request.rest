@@ -174,3 +174,12 @@ Content-Type: application/json
     "date": "2022.10.13 01:35:00",
     "carId": 2
 }
+### species
+get http://localhost:3000/species
+
+
+###landscapenames
+get http://localhost:3000/landscapenames
+
+###users
+get http://localhost:3000/users
