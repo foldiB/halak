@@ -1,0 +1,19 @@
+.my-container {
+  max-width: 1200px;
+  border: 1px dashed black;
+}
+
+.my-width-100 {
+  width: 100px;
+}
+
+body {
+  background-image: url(pics/3.jpg);
+  background-repeat: no-repeat;
+}
+h1 {
+  color: aliceblue;
+}
+p{
+  color: whitesmoke;
+}

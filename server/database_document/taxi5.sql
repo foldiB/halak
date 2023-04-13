@@ -161,3 +161,7 @@ select count(*) countUserEmail from users where userName = 'h'
 UNION all
   select count(*) countEmail from users where email = 'feher.h@gmail.com'
 ;
+
+
+SELECT * FROM cars c
+  INNER JOIN trips t ON c.id = T.carId
